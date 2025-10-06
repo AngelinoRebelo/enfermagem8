@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado de Enfermagem - 8° Período</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .option-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .correct-answer {
+            background-color: #dcfce7 !important; /* green-100 */
+            border-color: #22c55e !important; /* green-500 */
+            color: #15803d; /* green-800 */
+        }
+        .wrong-answer {
+            background-color: #fee2e2 !important; /* red-100 */
+            border-color: #ef4444 !important; /* red-500 */
+            color: #b91c1c; /* red-800 */
+        }
+        .selected-wrong {
+             background-color: #fee2e2 !important; /* red-100 */
+            border-color: #ef4444 !important; /* red-500 */
+            color: #b91c1c; /* red-800 */
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+    <div class="flex-grow flex items-center justify-center p-4">
+        <div id="quiz-container" class="w-full max-w-3xl bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+            <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-700 mb-2">Simulado de Enfermagem - 8° Período</h1>
+            <p id="progress-indicator" class="text-center text-gray-500 mb-6 font-medium">Questão 1 de 70</p>
+            
+            <div id="question-area">
+                <p id="question-text" class="text-lg text-gray-800 mb-6 min-h-[60px]"></p>
+                <div id="options-container" class="grid grid-cols-1 gap-4">
+                    <!-- Options will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div id="feedback-area" class="mt-6 hidden">
+                <h3 class="font-bold text-lg mb-2 text-gray-700">Justificativa:</h3>
+                <p id="justification-text" class="text-gray-600 bg-gray-50 p-4 rounded-lg border border-gray-200"></p>
+            </div>
+
+            <div class="flex justify-between items-center mt-8">
+                <button id="prev-btn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg hover:bg-gray-300 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Voltar</button>
+                <button id="next-btn" class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Avançar</button>
+            </div>
+        </div>
+
+        <div id="result-container" class="hidden w-full max-w-3xl bg-white p-8 rounded-2xl shadow-lg text-center">
+            <h1 class="text-3xl font-bold text-gray-700 mb-4">Simulado Finalizado!</h1>
+            <p class="text-xl text-gray-600 mb-6">Seu resultado final é:</p>
+            <div id="score-circle" class="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center bg-blue-100 rounded-full">
+                <span id="final-score" class="text-4xl font-bold text-blue-700"></span>
+            </div>
+            <p id="score-details" class="text-lg text-gray-600 mb-8"></p>
+            <button id="restart-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition duration-200">Refazer Simulado</button>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 text-gray-500 text-sm">
+        <p>&copy; Todos os direitos reservados a Simone Machado</p>
+    </footer>
+
+    <script>
+        const questions = [
+            // Farmacocinética e Farmacodinâmica
+            {
+                question: "Qual processo da farmacocinética é definido como 'o que o organismo faz com o fármaco'?",
+                options: ["Absorção", "Distribuição", "Metabolismo e Excreção (ADME)", "Farmacodinâmica"],
+                correctAnswer: 2,
+                justification: "A farmacocinética estuda o caminho que o fármaco percorre no corpo, incluindo os processos de Absorção, Distribuição, Metabolismo e Excreção (ADME), ou seja, 'o que o organismo faz com o fármaco'."
+            },
+            {
+                question: "O estudo dos efeitos bioquímicos e fisiológicos dos fármacos e seus mecanismos de ação é chamado de:",
+                options: ["Farmacocinética", "Farmacodinâmica", "Posologia", "Toxicologia"],
+                correctAnswer: 1,
+                justification: "A farmacodinâmica é a área da farmacologia que estuda 'o que o fármaco faz no organismo', incluindo seus efeitos e como eles são produzidos."
+            },
+            {
+                question: "Um fármaco que se liga a um receptor e o ativa, produzindo uma resposta biológica, é classificado como:",
+                options: ["Antagonista", "Agonista", "Quelante", "Placebo"],
+                correctAnswer: 1,
+                justification: "Um agonista é uma substância que se liga a um receptor celular e o ativa, mimetizando a ação de uma substância endógena e desencadeando uma resposta."
+            },
+            {
+                question: "O principal órgão responsável pela metabolização da maioria dos fármacos é:",
+                options: ["Rim", "Pulmão", "Fígado", "Intestino"],
+                correctAnswer: 2,
+                justification: "O fígado é o principal local de biotransformação dos fármacos, devido à alta concentração de enzimas, como o sistema Citocromo P450, que convertem os fármacos em metabólitos para facilitar sua eliminação."
+            },
+            {
+                question: "A capacidade dos microrganismos de resistir aos efeitos de um medicamento que normalmente seria eficaz contra eles é chamada de:",
+                options: ["Tolerância medicamentosa", "Resistência medicamentosa", "Taquifilaxia", "Efeito adverso"],
+                correctAnswer: 1,
+                justification: "A resistência medicamentosa ocorre quando microrganismos (como bactérias) desenvolvem mecanismos para sobreviver à exposição a um fármaco que antes era letal para eles."
+            },
+
+            // Agentes Cardiovasculares
+            {
+                question: "De acordo com as Diretrizes Brasileiras de Hipertensão (2020), uma Pressão Arterial de 165/105 mmHg é classificada como:",
+                options: ["Pré-hipertensão", "Hipertensão Estágio 1", "Hipertensão Estágio 2", "Hipertensão Estágio 3"],
+                correctAnswer: 2,
+                justification: "A Hipertensão Arterial Estágio 2 é definida por uma Pressão Arterial Sistólica (PAS) entre 160-179 mmHg e/ou uma Pressão Arterial Diastólica (PAD) entre 100-109 mmHg."
+            },
+            {
+                question: "Qual classe de anti-hipertensivos é conhecida por causar tosse seca como um efeito adverso comum?",
+                options: ["Betabloqueadores", "Diuréticos tiazídicos", "Inibidores da ECA (IECA)", "Bloqueadores dos canais de cálcio"],
+                correctAnswer: 2,
+                justification: "Os Inibidores da Enzima Conversora de Angiotensina (IECA) podem causar tosse seca devido ao acúmulo de bradicinina, um efeito colateral característico desta classe de medicamentos."
+            },
+            {
+                question: "No atendimento ao Infarto Agudo do Miocárdio (IAM), o mnemônico 'MONABICH' inclui qual das seguintes intervenções?",
+                options: ["Manitol", "Oxigênio", "Nifedipino", "Bicarbonato"],
+                correctAnswer: 1,
+                justification: "O 'O' em MONABICH refere-se à administração de Oxigênio, especialmente se a saturação for < 90%, para melhorar a oxigenação do miocárdio isquêmico. (Morfina, Oxigênio, Nitrato, AAS, Betabloqueador, IECA, Clopidogrel, Heparina)."
+            },
+            {
+                question: "A principal causa do Infarto Agudo do Miocárdio é:",
+                options: ["Arritmia cardíaca", "Hipertensão pulmonar", "Oclusão de uma artéria coronária por um trombo", "Insuficiência da valva aórtica"],
+                correctAnswer: 2,
+                justification: "O IAM ocorre, na maioria dos casos, quando uma placa de aterosclerose em uma artéria coronária se rompe, levando à formação de um trombo que obstrui o fluxo sanguíneo para uma parte do músculo cardíaco."
+            },
+            {
+                question: "Qual fármaco é um inibidor da ECA?",
+                options: ["Losartana", "Anlodipino", "Captopril", "Propranolol"],
+                correctAnswer: 2,
+                justification: "Captopril, Enalapril, Lisinopril, entre outros, são fármacos da classe dos Inibidores da Enzima Conversora de Angiotensina (IECA). Losartana é um BRA, Anlodipino é um BCC, e Propranolol é um betabloqueador."
+            },
+
+            // Fármacos Colinérgicos e Adrenérgicos
+            {
+                question: "A atropina é um fármaco anticolinérgico. Qual dos seguintes é um efeito esperado da sua administração?",
+                options: ["Miose (contração da pupila)", "Bradicardia", "Aumento da salivação", "Midríase (dilatação da pupila)"],
+                correctAnswer: 3,
+                justification: "A atropina bloqueia os receptores muscarínicos, causando efeitos como dilatação da pupila (midríase), secura da boca (xerostomia) e aumento da frequência cardíaca (taquicardia)."
+            },
+            {
+                question: "A succinilcolina é um bloqueador neuromuscular usado em cirurgias. A qual classe ela pertence?",
+                options: ["Antagonista competitivo não-despolarizante", "Agonista despolarizante", "Inibidor da acetilcolinesterase", "Antagonista alfa-adrenérgico"],
+                correctAnswer: 1,
+                justification: "A succinilcolina é um bloqueador neuromuscular despolarizante. Ela age como um agonista nos receptores nicotínicos da placa motora, causando uma despolarização persistente que leva à paralisia muscular."
+            },
+            {
+                question: "Qual receptor adrenérgico é o principal responsável pela vasoconstrição periférica?",
+                options: ["Alfa-1 (α1)", "Beta-1 (β1)", "Beta-2 (β2)", "Dopaminérgico"],
+                correctAnswer: 0,
+                justification: "Os receptores Alfa-1, localizados na musculatura lisa dos vasos sanguíneos, são os principais mediadores da vasoconstrição quando estimulados por catecolaminas como a noradrenalina."
+            },
+            {
+                question: "A ação da neostigmina no tratamento da miastenia grave baseia-se em:",
+                options: ["Bloquear os receptores de acetilcolina", "Aumentar a degradação da acetilcolina", "Inibir a enzima acetilcolinesterase", "Estimular a liberação de noradrenalina"],
+                correctAnswer: 2,
+                justification: "A neostigmina é um anticolinesterásico reversível. Ela inibe a enzima que degrada a acetilcolina (AchE), aumentando a quantidade de acetilcolina disponível na junção neuromuscular para estimular os músculos."
+            },
+            {
+                question: "Um paciente asmático não deve receber qual tipo de antagonista adrenérgico devido ao risco de broncoconstrição?",
+                options: ["Antagonista Alfa-1 seletivo", "Antagonista Beta-1 seletivo", "Antagonista Beta não-seletivo (β1 e β2)", "Antagonista dopaminérgico"],
+                correctAnswer: 2,
+                justification: "Antagonistas beta não-seletivos, como o propranolol, bloqueiam tanto os receptores β1 (cardíacos) quanto os β2 (pulmonares). O bloqueio dos receptores β2 nos brônquios pode causar broncoconstrição, o que é perigoso para pacientes com asma."
+            },
+
+            // Distúrbios Respiratórios
+            {
+                question: "A Insuficiência Respiratória Aguda (IRpA) tipo I, ou hipoxêmica, é caracterizada por:",
+                options: ["PaCO2 > 45 mmHg e pH < 7.35", "PaO2 < 60 mmHg com PaCO2 normal ou baixa", "PaO2 > 80 mmHg", "Aumento do volume corrente"],
+                correctAnswer: 1,
+                justification: "A IRpA hipoxêmica (Tipo I) é definida pela incapacidade de manter a oxigenação arterial adequada, resultando em uma PaO2 < 60 mmHg, geralmente com níveis de PaCO2 normais ou diminuídos."
+            },
+            {
+                question: "Qual é a faixa de pressão ideal para o cuff (balonete) de um tubo orotraqueal para prevenir isquemia da mucosa e microaspiração?",
+                options: ["5 - 10 cmH2O", "10 - 15 cmH2O", "25 - 30 cmH2O", "40 - 50 cmH2O"],
+                correctAnswer: 2,
+                justification: "A pressão do cuff deve ser mantida entre 25 a 30 cmH2O (ou 18 a 22 mmHg) para garantir a vedação da via aérea sem comprometer a perfusão capilar da traqueia."
+            },
+            {
+                question: "Por que se deve ter cautela ao administrar altas concentrações de oxigênio a um paciente com DPOC crônico retentor de CO2?",
+                options: ["Porque causa vasoconstrição coronariana.", "Porque pode deprimir o estímulo respiratório hipóxico.", "Porque aumenta o risco de barotrauma.", "Porque inativa o surfactante pulmonar."],
+                correctAnswer: 1,
+                justification: "Em pacientes com DPOC crônico, o principal estímulo para respirar passa a ser a hipoxemia (baixo O2), pois o centro respiratório se torna insensível a altos níveis de CO2. Administrar muito O2 pode remover esse estímulo hipóxico, levando à hipoventilação."
+            },
+            {
+                question: "Qual é um dos principais critérios para o diagnóstico da Síndrome do Desconforto Respiratório Agudo (SDRA)?",
+                options: ["Relação PaO2/FiO2 < 300", "Infiltrado pulmonar unilateral em raio-X de tórax", "Pressão de oclusão da artéria pulmonar > 18 mmHg", "Resposta rápida à oxigenoterapia convencional"],
+                correctAnswer: 0,
+                justification: "De acordo com a Definição de Berlim, um dos critérios para SDRA é a alteração na oxigenação. A relação PaO2/FiO2 < 300 (com PEEP ≥ 5 cmH2O) indica a presença da síndrome, sendo classificada como leve, moderada ou grave dependendo do valor."
+            },
+            {
+                question: "Qual manobra é utilizada para desobstrução de via aérea por corpo estranho em um adulto consciente?",
+                options: ["Manobra de Heimlich", "Manobra de Jaw Thrust", "Manobra de Sellick", "Posição de Trendelenburg"],
+                correctAnswer: 0,
+                justification: "A manobra de Heimlich (compressões abdominais) é o procedimento padrão para desalojar um corpo estranho que está obstruindo as vias aéreas de uma vítima consciente."
+            },
+
+            // Terapia Vasoativa e Trombolítica
+            {
+                question: "A Dopamina, em doses baixas (< 3 mcg/kg/min), atua predominantemente em quais receptores, causando vasodilatação renal e mesentérica?",
+                options: ["Alfa-1", "Beta-1", "Beta-2", "Dopaminérgicos (D1 e D2)"],
+                correctAnswer: 3,
+                justification: "Em doses baixas, a dopamina estimula principalmente os receptores dopaminérgicos, resultando em vasodilatação nos leitos renal, mesentérico, coronariano e cerebral."
+            },
+            {
+                question: "Qual droga vasoativa é considerada de primeira escolha para o tratamento do choque cardiogênico com disfunção miocárdica?",
+                options: ["Noradrenalina", "Adrenalina", "Dobutamina", "Nitroprussiato de Sódio"],
+                correctAnswer: 2,
+                justification: "A Dobutamina é um inotrópico potente com efeito predominantemente Beta-1, que aumenta a contratilidade cardíaca e o débito cardíaco, sendo a escolha para disfunção do miocárdio."
+            },
+            {
+                question: "Qual é o principal efeito da Noradrenalina, tornando-a a droga de escolha no choque séptico?",
+                options: ["Inotropismo positivo", "Broncodilatação", "Vasoconstrição periférica potente", "Vasodilatação coronariana"],
+                correctAnswer: 2,
+                justification: "A noradrenalina tem um potente efeito em receptores Alfa-1, causando vasoconstrição e aumentando a resistência vascular periférica, o que eleva a pressão arterial, sendo crucial no tratamento do choque distributivo como o séptico."
+            },
+            {
+                question: "O Nitroprussiato de Sódio é um potente vasodilatador. Qual cuidado especial a equipe de enfermagem deve ter com sua administração?",
+                options: ["Administrar em bolus rápido", "Proteger a solução e o equipo da luz", "Manter a solução refrigerada", "Não diluir o medicamento"],
+                correctAnswer: 1,
+                justification: "O Nitroprussiato de Sódio é fotossensível. A exposição à luz o degrada, liberando cianeto. Portanto, a bolsa de infusão e o equipo devem ser protegidos com um invólucro opaco."
+            },
+            {
+                question: "A Tríade de Virchow descreve os fatores que contribuem para a trombose. Quais são eles?",
+                options: ["Hipertensão, diabetes e tabagismo", "Estase venosa, lesão endotelial e hipercoagulabilidade", "Vasodilatação, inflamação e infecção", "Hipovolemia, acidose e hipotermia"],
+                correctAnswer: 1,
+                justification: "A Tríade de Virchow é composta por três fatores principais que predispõem à formação de trombos: estase sanguínea (fluxo lento), lesão da parede do vaso (endotélio) e estados de hipercoagulabilidade."
+            },
+
+            // Paciente Queimado na UTI
+            {
+                question: "De acordo com a Fórmula de Parkland, qual é o volume total de Ringer Lactato a ser infundido nas primeiras 24 horas em um paciente de 80 kg com 50% de superfície corporal queimada (SCQ)?",
+                options: ["8.000 mL", "12.000 mL", "16.000 mL", "20.000 mL"],
+                correctAnswer: 2,
+                justification: "A Fórmula de Parkland é: 4 mL x Peso (kg) x %SCQ. Portanto: 4 mL x 80 kg x 50 = 16.000 mL. Metade desse volume (8.000 mL) deve ser infundida nas primeiras 8 horas."
+            },
+            {
+                question: "Qual característica clínica é típica de uma queimadura de 3º grau?",
+                options: ["Presença de flictenas (bolhas) e muita dor", "Apenas hiperemia (vermelhidão) e dor", "Aparência esbranquiçada ou carbonizada e ausência de dor", "Cicatrização rápida sem sequelas"],
+                correctAnswer: 2,
+                justification: "A queimadura de 3º grau destrói todas as camadas da pele, incluindo as terminações nervosas, resultando em uma área insensível (sem dor) com aspecto de couro, esbranquiçada ou carbonizada."
+            },
+            {
+                question: "Um paciente chega à emergência após um incêndio em local fechado, com pelos nasais queimados e expectoração escura (carbonácea). Qual é a principal suspeita e prioridade?",
+                options: ["Intoxicação alimentar; lavagem gástrica", "Lesão por inalação; garantir via aérea pérvia", "Queimadura de 1º grau; hidratação da pele", "Choque séptico; iniciar antibióticos"],
+                correctAnswer: 1,
+                justification: "Sinais como pelos nasais queimados, rouquidão e escarro carbonáceo são altamente sugestivos de lesão por inalação. A prioridade é avaliar e proteger a via aérea, pois o edema pode causar obstrução rapidamente."
+            },
+            {
+                question: "Qual procedimento de emergência é indicado para uma queimadura circunferencial de 3º grau em um membro que causa ausência de pulso distal?",
+                options: ["Aplicação de curativo oclusivo", "Escarotomia", "Administração de vasodilatador", "Elevação do membro acima do nível do coração"],
+                correctAnswer: 1,
+                justification: "A escarotomia, uma incisão cirúrgica através da escara (pele queimada e inelástica), é necessária para aliviar a pressão causada pelo edema, restaurando a circulação em queimaduras circunferenciais que levam à síndrome compartimental."
+            },
+            {
+                question: "Usando a 'Regra dos Nove' para adultos, qual a porcentagem de superfície corporal queimada de um paciente que queimou todo o membro superior direito e a face anterior do tronco?",
+                options: ["18%", "27%", "36%", "45%"],
+                correctAnswer: 1,
+                justification: "Pela Regra dos Nove, um membro superior inteiro corresponde a 9% e a face anterior do tronco corresponde a 18%. A soma é 9% + 18% = 27%."
+            },
+            
+            // Mais questões variadas
+            {
+                question: "Qual é o principal efeito da Dobutamina?",
+                options: ["Aumentar a frequência cardíaca (cronotrópico positivo)", "Aumentar a força de contração do coração (inotrópico positivo)", "Causar vasoconstrição periférica", "Causar broncodilatação"],
+                correctAnswer: 1,
+                justification: "A Dobutamina é um agente inotrópico que atua primariamente nos receptores beta-1, aumentando a contratilidade miocárdica com menor impacto na frequência cardíaca, sendo ideal para choque cardiogênico."
+            },
+            {
+                question: "Na ventilação mecânica, a PEEP (Pressão Expiratória Final Positiva) tem como principal objetivo:",
+                options: ["Aumentar o volume corrente entregue", "Diminuir a frequência respiratória", "Prevenir o colapso alveolar e melhorar a oxigenação", "Facilitar a aspiração de secreções"],
+                correctAnswer: 2,
+                justification: "A PEEP mantém uma pressão positiva nos pulmões ao final da expiração, o que previne o colapso dos alvéolos, recruta alvéolos colapsados e melhora a troca gasosa, aumentando a capacidade residual funcional."
+            },
+            {
+                question: "Qual o antídoto utilizado para reverter os efeitos de benzodiazepínicos?",
+                options: ["Naloxona", "Flumazenil", "Protamina", "Vitamina K"],
+                correctAnswer: 1,
+                justification: "O flumazenil é um antagonista competitivo dos receptores benzodiazepínicos, usado para reverter a sedação e outros efeitos causados por esses medicamentos."
+            },
+             {
+                question: "Qual é o efeito do sistema nervoso parassimpático no coração?",
+                options: ["Aumento da frequência cardíaca", "Aumento da força de contração", "Diminuição da frequência cardíaca", "Vasoconstrição coronariana"],
+                correctAnswer: 2,
+                justification: "A estimulação parassimpática, mediada pelo nervo vago e pelo neurotransmissor acetilcolina, reduz a frequência cardíaca (efeito cronotrópico negativo)."
+            },
+            {
+                question: "A terapia trombolítica com alteplase (rtPA) é indicada em qual situação de embolia pulmonar (TEP)?",
+                options: ["TEP de baixo risco com D-dímero negativo", "TEP submaciça com ecocardiograma normal", "TEP maciça com instabilidade hemodinâmica (choque ou hipotensão)", "Todo paciente com diagnóstico de TVP"],
+                correctAnswer: 2,
+                justification: "A trombólise está indicada para pacientes com embolia pulmonar de alto risco (maciça), que apresentam choque ou hipotensão persistente, com o objetivo de dissolver o trombo rapidamente e restaurar a perfusão."
+            },
+            {
+                question: "Qual é o mecanismo de ação dos diuréticos tiazídicos, como a hidroclorotiazida, no tratamento da hipertensão?",
+                options: ["Bloqueiam a reabsorção de sódio e cloreto no túbulo distal", "Inibem a enzima conversora de angiotensina", "Bloqueiam os receptores beta-adrenérgicos", "Relaxam a musculatura lisa dos vasos"],
+                correctAnswer: 0,
+                justification: "Os diuréticos tiazídicos atuam no túbulo contorcido distal, inibindo o cotransportador de Na+/Cl-, o que aumenta a excreção de sódio e água, reduzindo o volume sanguíneo e, consequentemente, a pressão arterial."
+            },
+            {
+                question: "A intoxicação por monóxido de carbono (CO) em uma vítima de incêndio leva à hipóxia por qual mecanismo?",
+                options: ["Obstrução das vias aéreas inferiores", "Ligação do CO à hemoglobina com afinidade muito superior à do oxigênio", "Lesão direta dos alvéolos pelo calor", "Paralisia do diafragma"],
+                correctAnswer: 1,
+                justification: "O monóxido de carbono tem uma afinidade pela hemoglobina cerca de 200-250 vezes maior que o oxigênio, formando a carboxihemoglobina (COHb). Isso impede o transporte adequado de oxigênio para os tecidos, causando hipóxia tecidual grave."
+            },
+            {
+                question: "Segundo a RDC 50/2002, qual é a exigência mínima para o número de leitos em uma UTI?",
+                options: ["3 leitos", "5 leitos", "8 leitos", "10 leitos"],
+                correctAnswer: 1,
+                justification: "A RDC 50/2002 da ANVISA estabelece que uma Unidade de Terapia Intensiva deve ter no mínimo 5 leitos para ser considerada como tal."
+            },
+             {
+                question: "Qual o processo farmacocinético que descreve a transformação química de um fármaco no corpo?",
+                options: ["Absorção", "Distribuição", "Metabolismo (Biotransformação)", "Excreção"],
+                correctAnswer: 2,
+                justification: "Metabolismo, ou biotransformação, é o processo pelo qual o corpo modifica quimicamente os fármacos, geralmente no fígado, para torná-los mais hidrossolúveis e fáceis de excretar."
+            },
+             {
+                question: "A administração de adrenalina durante uma parada cardiorrespiratória visa principalmente:",
+                options: ["Corrigir a acidose metabólica", "Aumentar a contratilidade miocárdica e causar vasoconstrição periférica", "Diminuir a frequência cardíaca", "Prevenir a formação de trombos"],
+                correctAnswer: 1,
+                justification: "A adrenalina atua nos receptores alfa e beta. Seu efeito alfa-1 causa vasoconstrição, aumentando a pressão de perfusão coronariana e cerebral, enquanto seu efeito beta-1 aumenta a contratilidade, ajudando a restaurar a circulação espontânea."
+            },
+            {
+                question: "Um paciente com pneumonia apresenta estertores crepitantes na ausculta pulmonar. Este som é causado por:",
+                options: ["Estreitamento dos brônquios", "Presença de secreção espessa nas vias aéreas superiores", "Abertura de pequenas vias aéreas e alvéolos colapsados contendo líquido", "Inflamação da pleura"],
+                correctAnswer: 2,
+                justification: "Os estertores crepitantes (ou finos) são sons curtos e de alta frequência, semelhantes ao atrito de um cabelo, causados pela reabertura súbita de alvéolos e bronquíolos que estavam fechados devido a líquido ou exsudato, como na pneumonia e no edema pulmonar."
+            },
+            {
+                question: "Qual é o principal risco associado ao uso de heparina não fracionada em infusão contínua?",
+                options: ["Hipertensão", "Hiperglicemia", "Sangramento", "Tosse seca"],
+                correctAnswer: 2,
+                justification: "Como um potente anticoagulante, o principal efeito adverso da heparina é o sangramento. É crucial monitorar o tempo de tromboplastina parcial ativada (TTPA) para ajustar a dose e minimizar esse risco."
+            },
+            {
+                question: "Um paciente com diagnóstico de IAM sem supra de ST é tratado com Clopidogrel. Qual o mecanismo de ação deste fármaco?",
+                options: ["Inibe a agregação plaquetária", "Dissolve o coágulo já formado", "É um betabloqueador", "Reduz os níveis de colesterol"],
+                correctAnswer: 0,
+                justification: "O clopidogrel é um antiagregante plaquetário que inibe a ativação e agregação das plaquetas, prevenindo a formação ou expansão de trombos arteriais."
+            },
+            {
+                question: "Em um paciente com choque hipovolêmico, qual é a primeira medida terapêutica?",
+                options: ["Iniciar noradrenalina", "Administrar diuréticos", "Reposição volêmica com cristaloides", "Administrar dobutamina"],
+                correctAnswer: 2,
+                justification: "No choque hipovolêmico, o problema primário é a perda de volume. A prioridade é restaurar o volume intravascular com a infusão rápida de soluções cristaloides (como Ringer Lactato ou Soro Fisiológico) antes de considerar o uso de vasopressores."
+            },
+            {
+                question: "Qual o objetivo de manter a cabeceira do leito elevada (30-45 graus) em um paciente sob ventilação mecânica?",
+                options: ["Melhorar o retorno venoso cerebral", "Prevenir lesão por pressão na região sacral", "Reduzir o trabalho respiratório e prevenir a pneumonia associada à ventilação (PAV)", "Facilitar a visualização do monitor"],
+                correctAnswer: 2,
+                justification: "A elevação da cabeceira é uma medida fundamental para prevenir a PAV, pois reduz o risco de refluxo gastroesofágico e microaspiração de conteúdo orofaríngeo para os pulmões, além de otimizar a mecânica respiratória."
+            },
+             {
+                question: "Qual o principal efeito da estimulação dos receptores Beta-2 adrenérgicos?",
+                options: ["Aumento da frequência cardíaca", "Aumento da contratilidade miocárdica", "Vasoconstrição", "Broncodilatação e vasodilatação"],
+                correctAnswer: 3,
+                justification: "Os receptores Beta-2 estão presentes nos pulmões e na musculatura lisa dos vasos. Sua estimulação causa relaxamento do músculo liso, resultando em broncodilatação (útil na asma) e vasodilatação."
+            },
+            {
+                question: "O que é o 'Efeito de Primeira Passagem' na farmacocinética?",
+                options: ["A eliminação do fármaco pelos rins na primeira hora", "A metabolização de um fármaco administrado por via oral no fígado antes de atingir a circulação sistêmica", "A ligação do fármaco à albumina plasmática", "O tempo que o fármaco leva para fazer efeito pela primeira vez"],
+                correctAnswer: 1,
+                justification: "O efeito de primeira passagem refere-se à metabolização que um fármaco sofre ao passar pelo fígado logo após ser absorvido pelo trato gastrointestinal, o que pode reduzir significativamente sua biodisponibilidade."
+            },
+            {
+                question: "Qual das seguintes condições é uma contraindicação absoluta para o uso de terapia trombolítica?",
+                options: ["Hipertensão arterial controlada", "Idade superior a 75 anos", "Histórico de acidente vascular cerebral hemorrágico a qualquer momento", "Cirurgia de pequeno porte há 1 mês"],
+                correctAnswer: 2,
+                justification: "Um AVC hemorrágico prévio é uma contraindicação absoluta para o uso de trombolíticos devido ao alto risco de ressangramento intracraniano, que pode ser fatal."
+            },
+            {
+                question: "A intubação orotraqueal em sequência rápida geralmente envolve a administração de quais tipos de fármacos?",
+                options: ["Um anti-inflamatório e um antibiótico", "Um diurético e um anti-hipertensivo", "Um agente sedativo/hipnótico e um bloqueador neuromuscular", "Um analgésico opioide e um antiemético"],
+                correctAnswer: 2,
+                justification: "A sequência rápida de intubação visa obter o controle da via aérea de forma rápida e segura, utilizando um agente de indução (hipnótico, como propofol ou etomidato) para causar inconsciência, seguido por um bloqueador neuromuscular (como succinilcolina ou rocurônio) para causar paralisia."
+            },
+            {
+                question: "Qual é a principal complicação da intoxicação por paracetamol em altas doses?",
+                options: ["Insuficiência renal aguda", "Insuficiência hepática fulminante", "Insuficiência respiratória", "Arritmia cardíaca"],
+                correctAnswer: 1,
+                justification: "Em doses excessivas, o paracetamol esgota as reservas de glutationa no fígado. Isso leva ao acúmulo de um metabólito tóxico (NAPQI), que causa necrose hepatocelular e pode levar à insuficiência hepática fulminante."
+            },
+            {
+                question: "Em um paciente com TEP, o D-dímero é um exame útil para:",
+                options: ["Confirmar o diagnóstico em pacientes de alto risco", "Excluir o diagnóstico em pacientes de baixo a moderado risco", "Monitorar a eficácia da anticoagulação", "Identificar a localização exata do trombo"],
+                correctAnswer: 1,
+                justification: "O D-dímero tem um alto valor preditivo negativo. Se o resultado for negativo em um paciente com baixa ou intermediária probabilidade clínica de TEP, a doença pode ser descartada com segurança, evitando exames de imagem."
+            },
+            {
+                question: "A manobra de 'head tilt-chin lift' (inclinação da cabeça e elevação do queixo) é utilizada para:",
+                options: ["Verificar o pulso carotídeo", "Realizar a manobra de Heimlich", "Abrir a via aérea em uma vítima sem suspeita de trauma cervical", "Imobilizar a coluna cervical"],
+                correctAnswer: 2,
+                justification: "Esta manobra alinha os eixos da faringe e laringe, deslocando a língua da parede posterior da faringe e permitindo a passagem de ar. Não deve ser usada se houver suspeita de lesão na coluna cervical."
+            },
+            {
+                question: "Qual o objetivo principal do uso de betabloqueadores (ex: metoprolol) após um IAM?",
+                options: ["Aumentar a frequência cardíaca", "Reduzir o consumo de oxigênio pelo miocárdio", "Causar vasodilatação periférica", "Aumentar a força de contração"],
+                correctAnswer: 1,
+                justification: "Os betabloqueadores diminuem a frequência cardíaca, a pressão arterial e a contratilidade, reduzindo a carga de trabalho do coração (pós-carga) e, consequentemente, o consumo de oxigênio pelo miocárdio, o que ajuda a limitar a área do infarto e previne arritmias."
+            },
+            {
+                question: "O que é 'volume corrente' na ventilação mecânica?",
+                options: ["A quantidade de ar que permanece nos pulmões após a expiração", "O volume de ar inspirado ou expirado a cada ciclo respiratório", "A pressão máxima atingida durante a inspiração", "O número de respirações por minuto"],
+                correctAnswer: 1,
+                justification: "O volume corrente (VC ou Vt) é o volume de gás que entra e sai dos pulmões durante um ciclo respiratório normal, seja espontâneo ou mecânico. Em VM, é um parâmetro ajustado pelo profissional."
+            },
+            {
+                question: "Um paciente em uso de noradrenalina apresenta extravasamento da droga no acesso venoso periférico. Qual é a principal complicação e a ação imediata?",
+                options: ["Fleuma e calor local; aplicar compressas quentes", "Reação alérgica sistêmica; administrar adrenalina", "Necrose tecidual por vasoconstrição intensa; interromper a infusão e notificar", "Edema local; elevar o membro"],
+                correctAnswer: 2,
+                justification: "A noradrenalina é um potente vasoconstritor. Seu extravasamento para o tecido subcutâneo pode causar isquemia grave e necrose. A infusão deve ser interrompida imediatamente, e medidas para reverter a vasoconstrição (como infiltração de fentolamina) podem ser necessárias."
+            },
+            {
+                question: "Qual o principal indicador de que um paciente pode estar pronto para o 'desmame' da ventilação mecânica?",
+                options: ["Glasgow 3 e ausência de drive respiratório", "Necessidade de PEEP elevada (>10 cmH2O)", "Melhora da causa base da insuficiência respiratória e estabilidade hemodinâmica", "PaO2/FiO2 < 150"],
+                correctAnswer: 2,
+                justification: "O desmame só deve ser considerado quando a doença que levou à VM estiver resolvida ou em melhora, o paciente estiver hemodinamicamente estável (sem ou com baixas doses de vasopressores), e com parâmetros de oxigenação e ventilação adequados."
+            },
+            {
+                question: "A classe de fármacos 'sartanas' (ex: Losartana) atua por qual mecanismo?",
+                options: ["Inibindo a ECA", "Bloqueando os receptores de angiotensina II (AT1)", "Bloqueando os canais de cálcio", "Bloqueando os receptores beta-1"],
+                correctAnswer: 1,
+                justification: "As 'sartanas' são Bloqueadores dos Receptores de Angiotensina II (BRA). Elas impedem que a angiotensina II se ligue ao seu receptor AT1, bloqueando seus efeitos de vasoconstrição e estímulo da aldosterona."
+            },
+            {
+                question: "A presença de tórax em tonel (ou barril) é um sinal clínico característico de qual doença?",
+                options: ["Pneumonia", "Asma", "DPOC (Enfisema)", "Derrame Pleural"],
+                correctAnswer: 2,
+                justification: "No enfisema, a destruição do parênquima pulmonar leva à perda do recuo elástico e ao aprisionamento de ar, causando hiperinsuflação crônica dos pulmões e o consequente aumento do diâmetro anteroposterior do tórax."
+            },
+            {
+                question: "A dor de uma queimadura de segundo grau é intensa porque:",
+                options: ["Atinge os ossos", "As terminações nervosas na derme estão expostas e irritadas", "Libera substâncias que destroem os nervos", "Não há mais pele para proteger a área"],
+                correctAnswer: 1,
+                justification: "As queimaduras de segundo grau danificam a epiderme e parte da derme, onde se localizam as terminações nervosas. A exposição e inflamação dessas terminações nervosas causam dor severa."
+            },
+            {
+                question: "Qual das seguintes opções descreve um fármaco antagonista?",
+                options: ["Liga-se ao receptor e causa o efeito máximo", "Liga-se ao receptor mas não o ativa, bloqueando a ação do agonista", "Aumenta a velocidade de eliminação de outro fármaco", "É quimicamente idêntico à substância endógena"],
+                correctAnswer: 1,
+                justification: "Um antagonista tem afinidade pelo receptor, ou seja, consegue se ligar a ele, mas não tem eficácia intrínseca, não o ativando. Ao ocupar o receptor, impede que o agonista (endógeno ou exógeno) se ligue e produza seu efeito."
+            },
+             {
+                question: "Qual o principal cuidado ao administrar Nitroprussiato de Sódio por mais de 48 horas?",
+                options: ["Risco de hipertensão rebote", "Risco de toxicidade por cianeto", "Risco de taquifilaxia", "Risco de insuficiência renal"],
+                correctAnswer: 1,
+                justification: "O metabolismo do nitroprussiato libera cianeto, que é convertido no fígado em tiocianato (menos tóxico) e excretado pelos rins. Infusões prolongadas ou em altas doses, especialmente em pacientes com disfunção renal, podem levar ao acúmulo e toxicidade por cianeto."
+            },
+             {
+                question: "A administração de um fármaco diretamente na corrente sanguínea (via intravenosa) resulta em uma biodisponibilidade de:",
+                options: ["0%", "50%", "75%", "100%"],
+                correctAnswer: 3,
+                justification: "A via intravenosa (IV) introduz o fármaco diretamente na circulação sistêmica, sem passar por barreiras de absorção ou metabolismo de primeira passagem. Portanto, sua biodisponibilidade é, por definição, de 100%."
+            },
+            {
+                question: "Qual o objetivo do uso da cânula de Guedel (orofaríngea)?",
+                options: ["Proteger a via aérea contra aspiração", "Manter a língua afastada da parede posterior da faringe", "Facilitar a aspiração gástrica", "Servir como via definitiva para ventilação"],
+                correctAnswer: 1,
+                justification: "Em pacientes inconscientes, a musculatura da língua pode relaxar e obstruir a via aérea. A cânula de Guedel é um dispositivo auxiliar usado para manter a via aérea pérvia, impedindo a queda da base da língua."
+            },
+            {
+                question: "O tempo de meia-vida (T1/2) de um fármaco é o tempo necessário para que:",
+                options: ["O fármaco atinja sua concentração máxima", "O efeito terapêutico comece", "A concentração plasmática do fármaco se reduza em 50%", "O fármaco seja completamente eliminado do corpo"],
+                correctAnswer: 2,
+                justification: "O tempo de meia-vida é um parâmetro farmacocinético que indica a velocidade de eliminação de um fármaco, correspondendo ao tempo que leva para a sua concentração no plasma cair pela metade."
+            },
+             {
+                question: "Qual o efeito da vasopressina (análogo do ADH) quando usada no tratamento do choque?",
+                options: ["Inotropismo positivo", "Vasodilatação arterial", "Vasoconstrição periférica", "Diurese"],
+                correctAnswer: 2,
+                justification: "A vasopressina atua nos receptores V1 da musculatura lisa vascular, causando uma potente vasoconstrição, independente dos receptores adrenérgicos. É usada como agente de segunda linha em choques refratários, como o choque séptico."
+            },
+             {
+                question: "Qual dos seguintes é um sinal de pneumotórax hipertensivo?",
+                options: ["Murmúrio vesicular presente bilateralmente", "Turgência jugular e desvio de traqueia para o lado contralateral", "Bradicardia e hipertensão", "Expansibilidade torácica simétrica"],
+                correctAnswer: 1,
+                justification: "No pneumotórax hipertensivo, o ar aprisionado na cavidade pleural causa colapso do pulmão e empurra o mediastino (incluindo a traqueia e grandes vasos) para o lado oposto, resultando em estase jugular, choque obstrutivo e ausência de sons respiratórios no lado afetado."
+            },
+             {
+                question: "Qual intervenção de enfermagem é crucial para prevenir a Pneumonia Associada à Ventilação (PAV)?",
+                options: ["Manter o paciente em decúbito dorsal (posição supina)", "Realizar higiene oral com antisséptico (clorexidina) regularmente", "Manter a pressão do cuff abaixo de 20 cmH2O", "Aspirar o paciente apenas uma vez ao dia"],
+                correctAnswer: 1,
+                justification: "A higiene oral regular com clorexidina reduz a colonização bacteriana na orofaringe, diminuindo a carga de patógenos que poderiam ser aspirados para os pulmões, sendo uma das medidas mais eficazes na prevenção da PAV."
+            },
+             {
+                question: "Qual é o objetivo da espirometria de incentivo no pós-operatório?",
+                options: ["Medir a capacidade vital forçada", "Prevenir atelectasias através de inspirações profundas e sustentadas", "Administrar medicação broncodilatadora", "Avaliar a necessidade de oxigenoterapia"],
+                correctAnswer: 1,
+                justification: "A espirometria de incentivo estimula o paciente a realizar inspirações lentas e profundas, promovendo a reexpansão pulmonar e prevenindo o colapso de alvéolos (atelectasia), uma complicação comum no período pós-operatório."
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const progressIndicator = document.getElementById('progress-indicator');
+        const feedbackArea = document.getElementById('feedback-area');
+        const justificationText = document.getElementById('justification-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers.fill(null);
+            resultContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadQuestion(index) {
+            feedbackArea.classList.add('hidden');
+            const question = questions[index];
+            questionText.textContent = question.question;
+            progressIndicator.textContent = `Questão ${index + 1} de ${questions.length}`;
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, i) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-button', 'w-full', 'text-left', 'p-4', 'rounded-lg', 'border', 'border-gray-300', 'bg-white', 'hover:bg-gray-50', 'focus:outline-none', 'focus:ring-2', 'focus:ring-blue-400');
+                button.dataset.index = i;
+                button.onclick = () => selectAnswer(i);
+                optionsContainer.appendChild(button);
+            });
+
+            updateNavigation();
+            
+            if (userAnswers[index] !== null) {
+                showPreviousAnswer(index);
+            }
+        }
+        
+        function selectAnswer(selectedIndex) {
+            if (userAnswers[currentQuestionIndex] !== null) return; // Prevent re-answering
+
+            const question = questions[currentQuestionIndex];
+            const correct = selectedIndex === question.correctAnswer;
+            
+            userAnswers[currentQuestionIndex] = {
+                selected: selectedIndex,
+                correct: correct
+            };
+
+            if (correct) {
+                score++;
+            }
+
+            const buttons = optionsContainer.querySelectorAll('.option-button');
+            buttons.forEach(button => {
+                button.disabled = true;
+                const buttonIndex = parseInt(button.dataset.index);
+
+                if (buttonIndex === question.correctAnswer) {
+                    button.classList.add('correct-answer');
+                } else if (buttonIndex === selectedIndex && !correct) {
+                    button.classList.add('wrong-answer');
+                }
+            });
+
+            justificationText.innerHTML = question.justification;
+            feedbackArea.classList.remove('hidden');
+            nextBtn.disabled = false;
+        }
+
+        function showPreviousAnswer(index) {
+            const question = questions[index];
+            const answer = userAnswers[index];
+            
+            const buttons = optionsContainer.querySelectorAll('.option-button');
+            buttons.forEach(button => {
+                button.disabled = true;
+                const buttonIndex = parseInt(button.dataset.index);
+
+                if (buttonIndex === question.correctAnswer) {
+                    button.classList.add('correct-answer');
+                } else if (buttonIndex === answer.selected) {
+                    button.classList.add('selected-wrong');
+                }
+            });
+
+            justificationText.innerHTML = question.justification;
+            feedbackArea.classList.remove('hidden');
+            nextBtn.disabled = false;
+        }
+
+
+        function updateNavigation() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = userAnswers[currentQuestionIndex] === null;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.textContent = 'Finalizar';
+            } else {
+                nextBtn.textContent = 'Avançar';
+            }
+        }
+
+        function handleNext() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+            } else {
+                showResults();
+            }
+        }
+
+        function handlePrev() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+            }
+        }
+
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('final-score').textContent = `${percentage}%`;
+            document.getElementById('score-details').textContent = `Você acertou ${score} de ${questions.length} questões.`;
+        }
+
+        nextBtn.addEventListener('click', handleNext);
+        prevBtn.addEventListener('click', handlePrev);
+        restartBtn.addEventListener('click', startQuiz);
+
+        // Initial load
+        startQuiz();
+
+    </script>
+</body>
+</html>
