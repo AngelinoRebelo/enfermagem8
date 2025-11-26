@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulado de Enfermagem 8° Período - Urgência e Emergência</title>
+    <title>Simulado de Enfermagem - Urgência e Emergência</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -38,9 +38,9 @@
 <body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
     <div class="flex-grow flex items-center justify-center p-4">
         <div id="quiz-container" class="w-full max-w-3xl bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
-            <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-700 mb-2">Simulado de Urgência e Emergência</h1>
-            <h2 class="text-lg text-center text-gray-500 mb-4">Baseado no material de Queimaduras, Trauma e Emergências Clínicas</h2>
-            <p id="progress-indicator" class="text-center text-gray-500 mb-6 font-medium">Questão 1 de 55</p>
+            <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-700 mb-2">Simulado Integrado de Emergência</h1>
+            <h2 class="text-lg text-center text-gray-500 mb-4">Queimaduras, Trauma, Intoxicação, EAP, Dor Torácica e Diretrizes 2025</h2>
+            <p id="progress-indicator" class="text-center text-gray-500 mb-6 font-medium">Questão 1 de 60</p>
             
             <div id="question-area">
                 <p id="question-text" class="text-lg text-gray-800 mb-6 min-h-[60px]"></p>
@@ -77,335 +77,378 @@
 
     <script>
         const questions = [
-            // Queimaduras - Anatomia e Fisiopatologia
+            // TÓPICO 1: DOR TORÁCICA
             {
-                question: "Na anatomia da pele, qual camada é a mais superficial e fina, cuja lesão isolada caracteriza a queimadura de 1º grau?",
-                options: ["Derme", "Epiderme", "Hipoderme", "Tecido muscular"],
+                question: "Segundo a classificação de dor torácica, como é definida a Dor Tipo A?",
+                options: ["Provavelmente anginosa", "Definitivamente não anginosa", "Definitivamente anginosa", "Provavelmente não anginosa"],
+                correctAnswer: 2,
+                justification: "A Dor Tipo A é 'Definitivamente Anginosa': desconforto retroesternal precipitado por esforço, com irradiação típica, aliviado por repouso ou nitrato."
+            },
+            {
+                question: "Qual o tempo máximo recomendado para a realização do ECG na admissão de um paciente com dor torácica?",
+                options: ["5 minutos", "10 minutos", "20 minutos", "30 minutos"],
                 correctAnswer: 1,
-                justification: "A epiderme é a camada mais superficial e fina da pele. Seu comprometimento isolado define a queimadura de 1º grau."
+                justification: "O ECG deve ser realizado e interpretado o mais brevemente possível, em menos de 10 minutos da entrada do paciente."
             },
             {
-                question: "O processo de lesão térmica nas proteínas da pele é comparado no texto a qual fenômeno?",
-                options: ["Derreter gelo", "Fritar um ovo (desnaturação proteica)", "Evaporação da água", "Congelamento rápido"],
+                question: "Qual característica da dor torácica torna o diagnóstico de Síndrome Coronariana Aguda (SCA) pouco provável?",
+                options: ["Dor em aperto ou opressão", "Dor irradiada para membro superior esquerdo", "Dor pleurítica, localizada com a ponta do dedo ou com duração de poucos segundos", "Dor precipitada por esforço físico"],
+                correctAnswer: 2,
+                justification: "Características como dor pleurítica (piora ao respirar), dor pontual (localizada com um dedo) ou duração de segundos/muitas horas tornam a SCA pouco provável."
+            },
+            {
+                question: "Qual o achado clínico patognomônico na Pericardite que pode aliviar a dor do paciente?",
+                options: ["Posição deitada (decúbito dorsal)", "Posição sentada e inclinado para frente (Prece Maometana)", "Inspiração profunda", "Esforço físico"],
                 correctAnswer: 1,
-                justification: "O material compara a queimadura a 'fritar um ovo', explicando que a temperatura elevada causa desnaturação grave das proteínas da pele."
-            },
-            
-            // Queimaduras - Classificação e Profundidade
-            {
-                question: "Qual a característica clínica típica de uma queimadura de 2º grau?",
-                options: ["Pele seca e carbonizada", "Apenas vermelhidão e dor", "Formação de bolhas (flictenas) e base úmida/brilhante", "Ausência total de dor"],
-                correctAnswer: 2,
-                justification: "Queimaduras de 2º grau envolvem epiderme e derme, caracterizando-se por bolhas, aparência brilhante ou base úmida e dor intensa."
+                justification: "Na pericardite, a dor tipicamente piora com o decúbito dorsal e melhora na posição sentada com o tronco inclinado para frente (posição de prece maometana)."
             },
             {
-                question: "Como se apresenta clinicamente uma queimadura de 3º grau?",
-                options: ["Eritema doloroso", "Flictenas e muita dor", "Espessa, seca, esbranquiçada ou com aparência de couro", "Apenas descamação"],
-                correctAnswer: 2,
-                justification: "A queimadura de 3º grau causa dano completo da derme e epiderme, apresentando-se seca, esbranquiçada, com aparência de couro e geralmente indolor."
+                question: "A Síndrome de Boerhaave, um diagnóstico diferencial de dor torácica, refere-se a:",
+                options: ["Ruptura espontânea do esôfago", "Dissecção de aorta", "Embolia pulmonar", "Pneumotórax espontâneo"],
+                correctAnswer: 0,
+                justification: "A Síndrome de Boerhaave é a ruptura espontânea do esôfago, geralmente após vômitos vigorosos, causando dor torácica intensa."
             },
             {
-                question: "Queimaduras de 4º grau se diferenciam por acometer:",
-                options: ["Apenas a epiderme", "Até a derme profunda", "Tecidos subjacentes como músculos, ossos e órgãos internos", "Apenas folículos pilosos"],
+                question: "Na Dissecção Aguda de Aorta, como é classicamente descrita a dor?",
+                options: ["Queimação epigástrica", "Dor súbita, de forte intensidade, descrita como 'rasgando' e irradiando para o dorso", "Dor ventilatória dependente", "Desconforto leve"],
+                correctAnswer: 1,
+                justification: "A dor da dissecção aórtica é tipicamente súbita, de intensidade máxima no início, descrita como lancinante ou 'rasgando', irradiando para as costas."
+            },
+            {
+                question: "Qual marcador de necrose miocárdica possui alta sensibilidade e especificidade, com meia-vida prolongada?",
+                options: ["Mioglobina", "CK-MB", "Troponina", "LDH"],
                 correctAnswer: 2,
-                justification: "O 4º grau envolve não apenas todas as camadas da pele, mas também tecido subjacente, músculos, ossos e órgãos internos."
+                justification: "As Troponinas são os marcadores mais sensíveis e específicos para lesão miocárdica."
+            },
+            {
+                question: "O que caracteriza a dor torácica do tipo pleurítica?",
+                options: ["É difusa e em aperto", "Piora com a tosse e respiração profunda", "Melhora com nitrato sublingual", "Não se altera com movimentos"],
+                correctAnswer: 1,
+                justification: "A dor pleurítica (comum em pleurites, pneumonias, TEP) piora caracteristicamente com a tosse e a respiração profunda."
+            },
+            {
+                question: "Em pacientes com suspeita de IAM, qual é a conduta imediata em relação ao oxigênio?",
+                options: ["Administrar em todos os pacientes", "Administrar apenas se saturação < 90% ou congestão pulmonar", "Administrar apenas em casos de dor torácica Tipo A", "Nunca administrar"],
+                correctAnswer: 1,
+                justification: "O oxigênio deve ser administrado (2-4 L/min) se houver hipoxemia (SatO2 < 90%) ou sinais de congestão pulmonar/dispneia."
+            },
+            {
+                question: "Qual é a classificação de Killip para um paciente com IAM que apresenta choque cardiogênico?",
+                options: ["Killip I", "Killip II", "Killip III", "Killip IV"],
+                correctAnswer: 3,
+                justification: "Killip IV corresponde à presença de choque cardiogênico, com mortalidade superior a 80%."
             },
 
-            // Queimaduras - Regra dos Nove
+            // TÓPICO 2: DIRETRIZES AHA 2025
             {
-                question: "Pela 'Regra dos Nove' para adultos, qual a porcentagem de superfície corporal correspondente a um membro superior (braço inteiro)?",
+                question: "Segundo as diretrizes da AHA 2025, qual a recomendação para a técnica de compressão torácica em bebês (lactentes)?",
+                options: ["Técnica de 2 dedos é a preferida", "Técnica dos 2 polegares com as mãos circundando o tórax é superior", "Usar a palma de uma mão", "Não realizar compressões"],
+                correctAnswer: 1,
+                justification: "A técnica dos 2 polegares-mãos circundando o tórax é recomendada como superior à técnica de 2 dedos para bebês, por gerar melhor profundidade e pressão de perfusão."
+            },
+            {
+                question: "Para adultos em parada respiratória (com pulso), qual é a nova frequência de ventilação recomendada?",
+                options: ["1 ventilação a cada 3 segundos", "1 ventilação a cada 5-6 segundos", "1 ventilação a cada 6 segundos (10 por minuto)", "1 ventilação a cada 10 segundos"],
+                correctAnswer: 2,
+                justification: "É aceitável administrar 1 ventilação a cada 6 segundos (10 ventilações por minuto) para adultos em parada respiratória."
+            },
+            {
+                question: "Qual a recomendação das diretrizes de 2025 sobre o uso de Naloxona por leigos?",
+                options: ["Proibido para leigos", "Recomendado apenas para profissionais", "Políticas devem permitir posse e uso de boa-fé por socorristas leigos em suspeita de overdose de opioides", "Apenas em ambiente hospitalar"],
+                correctAnswer: 2,
+                justification: "As diretrizes apoiam políticas que permitam a posse, uso e imunidade para socorristas leigos administrarem naloxona em casos de suspeita de overdose."
+            },
+            {
+                question: "No manejo da Obstrução de Via Aérea por Corpo Estranho (OVACE) grave em adultos, qual a sequência recomendada?",
+                options: ["Apenas compressões abdominais (Heimlich)", "Ciclos de 5 golpes nas costas seguidos de 5 compressões abdominais", "Apenas golpes nas costas", "Inversão da vítima"],
+                correctAnswer: 1,
+                justification: "O novo algoritmo recomenda ciclos repetidos de 5 golpes nas costas seguidos de 5 compressões abdominais até a desobstrução ou inconsciência."
+            },
+            {
+                question: "Para o controle de temperatura pós-PCR em adultos que não respondem a comandos, qual a duração mínima recomendada?",
+                options: ["12 horas", "24 horas", "Pelo menos 36 horas", "48 horas"],
+                correctAnswer: 2,
+                justification: "É aceitável manter o controle de temperatura (hipotermia ou normotermia controlada) por pelo menos 36 horas."
+            },
+            {
+                question: "Sobre o acesso vascular na PCR em adultos, as diretrizes de 2025 priorizam:",
+                options: ["Acesso Intraósseo (IO)", "Acesso Intravenoso (IV); IO se IV falhar", "Acesso Central", "Via Endotraqueal"],
+                correctAnswer: 1,
+                justification: "Recomenda-se tentar primeiro o acesso IV. O acesso IO é aceitável se as tentativas iniciais de IV não forem bem-sucedidas."
+            },
+            {
+                question: "Em relação à PCR em gestantes, o parto de ressuscitação (cesariana perimortem) deve ser iniciado para que o feto seja retirado em até:",
+                options: ["2 minutos", "5 minutos", "10 minutos", "15 minutos"],
+                correctAnswer: 1,
+                justification: "A preparação deve começar imediatamente para que o parto seja concluído em até 5 minutos após a PCR, visando o benefício materno."
+            },
+            {
+                question: "Qual a meta de Saturação de Oxigênio (SpO2) nos cuidados pós-PCR para evitar hiperóxia?",
+                options: ["100%", "92% a 98%", "90% a 98%", "> 99%"],
+                correctAnswer: 2,
+                justification: "A meta de SpO2 nos cuidados pós-PCR é de 90% a 98%, evitando tanto a hipóxia quanto a hiperóxia."
+            },
+            {
+                question: "Sobre a desfibrilação em mulheres adultas, qual é a nova consideração?",
+                options: ["Sutiã deve ser removido sempre", "Pode ser aceitável ajustar a posição do sutiã em vez de removê-lo", "Não usar DEA em mulheres", "Usar pás pediátricas"],
+                correctAnswer: 1,
+                justification: "Pode ser aceitável ajustar a posição do sutiã em vez de removê-lo para agilizar o posicionamento das pás e mitigar desconforto."
+            },
+            {
+                question: "Em recém-nascidos a termo vigorosos, qual a recomendação sobre o clampeamento do cordão umbilical?",
+                options: ["Imediato", "Adiar por pelo menos 30 segundos", "Adiar por pelo menos 60 segundos", "Não há recomendação"],
+                correctAnswer: 2,
+                justification: "Para RN a termo que não precisam de ressuscitação imediata, adiar o clampeamento por pelo menos 60 segundos é benéfico."
+            },
+
+            // TÓPICO 3: QUEIMADURAS
+            {
+                question: "Pela Regra dos Nove, qual a % de superfície corporal de um membro superior (braço) em um adulto?",
                 options: ["4,5%", "9%", "18%", "1%"],
                 correctAnswer: 1,
-                justification: "No adulto, cada membro superior corresponde a 9% da superfície corporal total."
+                justification: "No adulto, cada membro superior (braço + antebraço + mão) corresponde a 9% da SCQ."
             },
             {
-                question: "Na 'Regra dos Nove' para adultos, o tronco anterior corresponde a:",
-                options: ["9%", "18%", "36%", "1%"],
+                question: "Qual é a Fórmula de Parkland correta para a reposição volêmica nas primeiras 24 horas?",
+                options: ["2 ml x Peso x %SCQ", "4 ml x Peso x %SCQ (Ringer Lactato)", "100 ml x Peso", "1000 ml fixo"],
                 correctAnswer: 1,
-                justification: "O tronco anterior no adulto corresponde a 18% da superfície corporal total."
+                justification: "A fórmula de Parkland é: 4 ml x Peso (kg) x % Superfície Corporal Queimada, usando Ringer Lactato."
             },
             {
-                question: "Para crianças/bebês, qual a porcentagem atribuída à cabeça na 'Regra dos Nove' modificada?",
-                options: ["9%", "14%", "18%", "21%"],
+                question: "Como deve ser administrado o volume calculado pela fórmula de Parkland?",
+                options: ["Tudo em 4 horas", "50% nas primeiras 8 horas e 50% nas 16 horas seguintes", "Volumes iguais a cada hora", "1/3 a cada 8 horas"],
+                correctAnswer: 1,
+                justification: "Metade do volume total é infundida nas primeiras 8 horas após a queimadura, e a outra metade nas 16 horas seguintes."
+            },
+            {
+                question: "Queimaduras de 2º grau se caracterizam clinicamente por:",
+                options: ["Eritema e dor apenas", "Flictenas (bolhas), base úmida e dor", "Pele seca, indolor e aspecto de couro", "Carbonização"],
+                correctAnswer: 1,
+                justification: "A presença de flictenas (bolhas), superfície úmida/brilhante e dor intensa são típicas de queimaduras de 2º grau."
+            },
+            {
+                question: "Qual sinal sugere lesão por inalação de fumaça?",
+                options: ["Poliúria", "Vibrissas (pelos nasais) chamuscadas e escarro carbonáceo", "Hipertensão", "Dor abdominal"],
+                correctAnswer: 1,
+                justification: "Pelos nasais chamuscados, queimadura em face, rouquidão e escarro com fuligem indicam lesão inalatória."
+            },
+            {
+                question: "A escarotomia é indicada em qual situação?",
+                options: ["Queimaduras de 1º grau extensas", "Queimaduras circunferenciais de tórax ou membros que comprometem ventilação/circulação", "Sempre que houver bolhas", "Em queimaduras químicas"],
+                correctAnswer: 1,
+                justification: "Escarotomia é a incisão na escara de queimaduras circunferenciais profundas para aliviar a compressão e restaurar a perfusão ou ventilação."
+            },
+            {
+                question: "Em queimaduras elétricas graves, qual a meta de diurese para adultos para prevenir insuficiência renal por mioglobina?",
+                options: ["30-50 ml/h", "50-70 ml/h", "100 ml/h", "1 ml/kg/h"],
                 correctAnswer: 2,
-                justification: "Em crianças e bebês, a cabeça corresponde a 18% da superfície corporal, refletindo a proporção corporal diferente dos adultos."
+                justification: "Para queimaduras elétricas, deve-se manter uma diurese mais alta, em torno de 100 ml/h em adultos, para clarear a mioglobina."
             },
             {
-                question: "Na 'Regra dos Nove' para adultos, a região genital corresponde a:",
-                options: ["1%", "5%", "9%", "0,5%"],
-                correctAnswer: 0,
-                justification: "A região genital (períneo) corresponde a 1% da superfície corporal no adulto."
+                question: "Qual a conduta inicial para queimaduras químicas?",
+                options: ["Cobrir imediatamente", "Irrigação copiosa com água corrente", "Usar neutralizante químico", "Aplicar creme"],
+                correctAnswer: 1,
+                justification: "A remoção do agente químico com irrigação abundante de água é a prioridade inicial."
+            },
+            {
+                question: "A classificação de 'Grande Queimado' em adultos inclui:",
+                options: ["Queimadura de 2º grau < 10%", "Queimadura de 2º grau > 20% SCQ ou lesão inalatória/elétrica", "Apenas queimaduras de 3º grau > 50%", "Queimadura solar"],
+                correctAnswer: 1,
+                justification: "Adultos com mais de 20% de SCQ, ou com lesões especiais (elétrica, inalatória, face/mãos), são considerados grandes queimados."
+            },
+            {
+                question: "Qual curativo tópico é comumente recomendado para queimaduras (conforme o texto)?",
+                options: ["Vaselina pura", "Sulfadiazina de Prata", "Corticoides", "Pasta d'água"],
+                correctAnswer: 1,
+                justification: "A Sulfadiazina de Prata é um agente antimicrobiano tópico amplamente citado para o tratamento de queimaduras."
             },
 
-            // Queimaduras - Classificação de Gravidade
+            // TÓPICO 4: TRAUMATISMO CRANIOENCEFÁLICO (TCE)
             {
-                question: "Um paciente adulto com queimadura de 2º grau em 15% da superfície corporal é classificado como:",
-                options: ["Pequeno queimado (leve)", "Médio queimado (moderado)", "Grande queimado (grave)", "Não é considerado queimado"],
+                question: "O que caracteriza a 'Tríade de Cushing' no TCE grave?",
+                options: ["Hipotensão, taquicardia, taquipneia", "Hipertensão, bradicardia e alteração respiratória", "Hipertensão, taquicardia, febre", "Hipotensão, bradicardia, hipotermia"],
                 correctAnswer: 1,
-                justification: "Médio queimado adulto é aquele com queimadura de 2º grau entre 10% e 20% da superfície corporal."
+                justification: "A Tríade de Cushing (sinal de hipertensão intracraniana) é: Hipertensão arterial, Bradicardia e Respiração irregular."
             },
             {
-                question: "Qual das seguintes situações classifica automaticamente um paciente como 'Grande Queimado'?",
-                options: ["Queimadura de 1º grau em 50% do corpo", "Queimadura de 2º grau em 5% do corpo", "Lesão por inalação ou queimadura elétrica", "Queimadura solar extensa"],
-                correctAnswer: 2,
-                justification: "Lesões elétricas, químicas, por inalação, ou envolvendo áreas nobres (face, mãos, genitália) classificam o paciente como Grande Queimado, independentemente da extensão."
-            },
-
-            // Queimaduras - Tratamento e Parkland
-            {
-                question: "Qual é a Fórmula de Parkland correta para reposição volêmica nas primeiras 24 horas?",
-                options: ["2 ml x Peso x %SCQ", "4 ml x Peso x %SCQ (Ringer Lactato)", "10 ml x Peso", "100 ml x %SCQ"],
+                question: "O 'intervalo lúcido' é classicamente associado a:",
+                options: ["Hematoma Subdural Agudo", "Hematoma Epidural (Extradural)", "Concussão", "Lesão Axonal Difusa"],
                 correctAnswer: 1,
-                justification: "A fórmula de Parkland recomendada é 4 ml de Ringer Lactato x Peso (kg) x % de superfície corporal queimada."
-            },
-            {
-                question: "Como deve ser administrado o volume calculado pela fórmula de Parkland nas primeiras 24 horas?",
-                options: ["Todo o volume nas primeiras 4 horas", "50% nas primeiras 8 horas e 50% nas 16 horas seguintes", "Volumes iguais a cada hora", "1/3 a cada 8 horas"],
-                correctAnswer: 1,
-                justification: "Metade (1/2) do volume total deve ser administrada nas primeiras 8 horas e o restante nas 16 horas seguintes."
-            },
-            {
-                question: "Qual a diurese alvo para um paciente adulto com queimadura térmica?",
-                options: ["10-20 ml/h", "30-50 ml/h", "100 ml/h", "1 ml/kg/h"],
-                correctAnswer: 1,
-                justification: "Para queimaduras térmicas em adultos, a meta de débito urinário é de 30 a 50 ml/h."
-            },
-            {
-                question: "Em casos de queimadura elétrica, qual a meta de diurese no adulto para prevenir lesão renal por mioglobina?",
-                options: ["30-50 ml/h", "50-70 ml/h", "100 ml/h", "200 ml/h"],
-                correctAnswer: 2,
-                justification: "Em queimaduras elétricas, deve-se aumentar a oferta de líquidos para garantir uma diurese de 100 ml/h no adulto, visando clarear a mioglobinúria."
-            },
-            
-            // Queimaduras - Tipos Específicos e Cuidados
-            {
-                question: "Qual a principal complicação sistêmica associada à queimadura elétrica de alta voltagem devido à destruição muscular?",
-                options: ["Hipocalemia", "Liberação de mioglobina e potássio (risco de IRA e arritmias)", "Alcalose respiratória", "Hiperglicemia severa"],
-                correctAnswer: 1,
-                justification: "A destruição muscular libera mioglobina (tóxica para os rins) e potássio (risco de arritmias cardíacas)."
-            },
-            {
-                question: "Quais são sinais de lesão pulmonar por inalação de fumaça?",
-                options: ["Poliúria e hipertensão", "Pelos nasais chamuscados, rouquidão, escarro com fuligem", "Dor abdominal", "Cefaleia apenas"],
-                correctAnswer: 1,
-                justification: "Indicadores de lesão por inalação incluem queimadura de face, pelos nasais chamuscados, rouquidão, estridor e escarro carbonáceo."
-            },
-            {
-                question: "O que é a escarotomia?",
-                options: ["Retirada de pele para enxerto", "Incisão na escara para aliviar constrição e permitir ventilação/circulação", "Limpeza da ferida com escova", "Aplicação de creme antibiótico"],
-                correctAnswer: 1,
-                justification: "Escarotomia é a incisão realizada na pele queimada (escara) em queimaduras circunferenciais para aliviar a pressão do edema e permitir a expansão torácica ou circulação do membro."
-            },
-            {
-                question: "Sobre os curativos em queimados, qual a recomendação do material?",
-                options: ["Usar xylocaína gel para dor", "Usar curativo oclusivo e agentes como Sulfadiazina de Prata", "Deixar exposto ao ar", "Usar pasta de dente"],
-                correctAnswer: 1,
-                justification: "Recomenda-se curativo oclusivo para diminuir dor e contaminação, utilizando agentes antibacterianos como a Sulfadiazina de Prata. Xylocaína e furacin não são recomendados."
-            },
-            {
-                question: "Qual é a técnica de enfaixamento recomendada para membros queimados?",
-                options: ["Circular apertado", "Espiral contínua", "Escama de peixe (indo e voltando, sem dar voltas completas)", "Nenhuma, deixar aberto"],
-                correctAnswer: 2,
-                justification: "A técnica recomendada é em 'escama de peixe' (indo e voltando), evitando enfaixar girando (circular) para não causar constrição com o edema."
-            },
-
-            // Intoxicação
-            {
-                question: "Quais são as fases da intoxicação descritas?",
-                options: ["Ingestão e Digestão", "Exposição, Toxicocinética, Toxicodinâmica e Clínica", "Absorção e Excreção apenas", "Aguda e Crônica"],
-                correctAnswer: 1,
-                justification: "As fases descritas são: Exposição, Toxicocinética (transporte), Toxicodinâmica (ação) e Clínica (sinais e sintomas)."
-            },
-            {
-                question: "No atendimento inicial ao intoxicado, qual a prioridade?",
-                options: ["Identificar o veneno", "Garantir a segurança da cena e do socorrista", "Administrar carvão ativado", "Provocar vômito"],
-                correctAnswer: 1,
-                justification: "A segurança da cena é a prioridade para evitar que o socorrista também se torne uma vítima. Em seguida, o ABCDE."
-            },
-            {
-                question: "Qual substância é citada como asfixiante químico comum em incêndios (além do CO)?",
-                options: ["Gás cloro", "Cianeto", "Amônia", "Nitrogênio"],
-                correctAnswer: 1,
-                justification: "O cianeto é um subproduto da combustão de plásticos e é um asfixiante químico que impede as células de usar oxigênio."
-            },
-            {
-                question: "Qual o mecanismo da intoxicação por Monóxido de Carbono (CO)?",
-                options: ["Irritação direta da via aérea", "Ligação à hemoglobina com afinidade muito maior que o O2, causando hipóxia", "Paralisia muscular", "Edema pulmonar imediato"],
-                correctAnswer: 1,
-                justification: "O CO se liga à hemoglobina (formando carboxihemoglobina) com afinidade 200-250 vezes maior que o oxigênio, impedindo o transporte de O2."
-            },
-
-            // Edema Agudo de Pulmão (EAP)
-            {
-                question: "O que caracteriza o Edema Agudo de Pulmão (EAP)?",
-                options: ["Acúmulo de ar na pleura", "Acúmulo súbito e anormal de líquido nos espaços extravasculares (interstício e alvéolos) do pulmão", "Infecção bacteriana crônica", "Obstrução da traqueia"],
-                correctAnswer: 1,
-                justification: "EAP é o acúmulo anormal de líquido nos pulmões, interferindo nas trocas gasosas."
-            },
-            {
-                question: "Qual a diferença principal entre EAP cardiogênico e não cardiogênico?",
-                options: ["Não há diferença", "Cardiogênico é por aumento da pressão hidrostática; Não cardiogênico é por aumento da permeabilidade vascular", "Cardiogênico é viral; Não cardiogênico é bacteriano", "Cardiogênico tem menos proteína"],
-                correctAnswer: 1,
-                justification: "O cardiogênico ocorre por aumento da pressão capilar pulmonar (hidrostática). O não cardiogênico ocorre por lesão da membrana e aumento da permeabilidade."
-            },
-            {
-                question: "Qual sinal clínico extremo sugere EAP grave?",
-                options: ["Tosse seca", "Secreção rósea espumosa saindo por boca e nariz", "Dor no ombro", "Febre alta"],
-                correctAnswer: 1,
-                justification: "A secreção rósea e espumosa indica inundação alveolar e é um sinal clássico de gravidade no EAP."
-            },
-            {
-                question: "Qual a posição recomendada para o paciente com EAP?",
-                options: ["Deitado (supina)", "Trendelenburg", "Sentado, preferencialmente com pernas pendentes", "Decúbito lateral"],
-                correctAnswer: 2,
-                justification: "A posição sentada com pernas pendentes reduz o retorno venoso (pré-carga) e facilita a respiração."
-            },
-            {
-                question: "Qual a função da Furosemida no tratamento do EAP?",
-                options: ["Aumentar a pressão arterial", "Diurético de alça com efeito venodilatador imediato", "Broncodilatador", "Sedativo"],
-                correctAnswer: 1,
-                justification: "A furosemida causa venodilatação imediata (reduzindo pré-carga) e, posteriormente, diurese."
-            },
-            {
-                question: "Qual a função da Morfina no EAP (quando indicada)?",
-                options: ["Aumentar a frequência cardíaca", "Reduzir ansiedade e pré-carga (venodilatação)", "Aumentar a contratilidade", "Reverter broncoespasmo"],
-                correctAnswer: 1,
-                justification: "A morfina reduz a ansiedade e promove venodilatação, diminuindo o retorno venoso."
-            },
-            {
-                question: "A Nitroglicerina é usada no EAP principalmente por sua ação:",
-                options: ["Diurética", "Vasodilatadora venosa e coronariana (reduz pré-carga)", "Inotrópica positiva", "Antiarrítmica"],
-                correctAnswer: 1,
-                justification: "A nitroglicerina é um potente venodilatador, reduzindo a pré-carga e melhorando o fluxo coronariano."
-            },
-
-            // Trauma Cranioencefálico (TCE)
-            {
-                question: "O que define uma concussão cerebral?",
-                options: ["Sangramento visível na TC", "Perda imediata e transitória da consciência sem lesão estrutural macroscópica", "Fratura com afundamento", "Coma prolongado"],
-                correctAnswer: 1,
-                justification: "Concussão é uma perda transitória da consciência e função, sem alterações estruturais visíveis na tomografia."
-            },
-            {
-                question: "O hematoma epidural (extradural) é frequentemente causado por ruptura de:",
-                options: ["Veias ponte", "Artéria meníngea média", "Seios venosos", "Artéria basilar"],
-                correctAnswer: 1,
-                justification: "O hematoma epidural geralmente resulta de fratura temporal que lacera a artéria meníngea média."
-            },
-            {
-                question: "O 'intervalo lúcido' é classicamente associado a qual tipo de hematoma?",
-                options: ["Subdural agudo", "Epidural", "Subaracnoideo", "Intraparenquimatoso"],
-                correctAnswer: 1,
-                justification: "O intervalo lúcido (perda de consciência, melhora temporária, seguida de piora) é clássico do hematoma epidural."
+                justification: "O intervalo lúcido (perda de consciência, melhora temporária, seguida de piora) é típico do hematoma epidural (ruptura da artéria meníngea média)."
             },
             {
                 question: "Sinais de fratura de base de crânio incluem:",
-                options: ["Midríase bilateral", "Sinal de Battle e olhos de guaxinim (equimose periorbitária)", "Hemiplegia", "Hipertensão"],
-                correctAnswer: 1,
-                justification: "Equimose retroauricular (Battle) e periorbitária (guaxinim), além de otoliquorreia/rinoliquorreia, indicam fratura de base de crânio."
-            },
-            {
-                question: "O que compõe a Tríade de Cushing (sinal de hipertensão intracraniana)?",
-                options: ["Hipotensão, taquicardia, taquipneia", "Hipertensão, bradicardia, alteração respiratória", "Hipertensão, taquicardia, febre", "Hipotensão, bradicardia, hipotermia"],
-                correctAnswer: 1,
-                justification: "A tríade é: Hipertensão arterial (com pressão de pulso alargada), Bradicardia e Respiração irregular."
-            },
-            {
-                question: "Qual a pontuação da Escala de Coma de Glasgow para um paciente que abre os olhos à dor, emite sons incompreensíveis e apresenta flexão anormal (decorticação)?",
-                options: ["6", "7", "8", "9"],
-                correctAnswer: 1,
-                justification: "Abertura ocular à dor (2) + Sons incompreensíveis (2) + Flexão anormal (3) = 7."
-            },
-            {
-                question: "O hematoma subdural é causado geralmente por:",
-                options: ["Ruptura arterial", "Ruptura de veias ponte", "Fratura linear", "Aneurisma"],
-                correctAnswer: 1,
-                justification: "O hematoma subdural ocorre geralmente por ruptura das veias ponte entre o córtex e a dura-máter."
-            },
-            {
-                question: "Qual a conduta para um objeto encravado no crânio?",
-                options: ["Remover imediatamente", "Remover e fazer curativo", "Não remover e estabilizar o objeto", "Cortar rente ao crânio"],
-                correctAnswer: 2,
-                justification: "Objetos encravados não devem ser removidos no pré-hospitalar; devem ser estabilizados para evitar lesão adicional."
-            },
-
-            // Trauma Raquimedular (TRM)
-            {
-                question: "Uma lesão medular no nível C4 resulta em:",
-                options: ["Paraplegia", "Tetraplegia", "Hemiplegia", "Monoplegia"],
-                correctAnswer: 1,
-                justification: "Lesões cervicais altas (C4) afetam os quatro membros, resultando em tetraplegia."
-            },
-            {
-                question: "Uma lesão medular no nível T6 resulta em:",
-                options: ["Tetraplegia", "Paraplegia", "Perda apenas sensitiva", "Morte imediata"],
-                correctAnswer: 1,
-                justification: "Lesões torácicas (como T6) preservam os membros superiores, resultando em paraplegia."
-            },
-
-            // Dor Torácica e SCA
-            {
-                question: "A dor torácica Tipo A é definida como:",
-                options: ["Definitivamente não anginosa", "Provavelmente anginosa", "Definitivamente anginosa", "Provavelmente não anginosa"],
-                correctAnswer: 2,
-                justification: "Tipo A é a dor definitivamente anginosa: retroesternal, precipitada por esforço, aliviada por repouso/nitrato."
-            },
-            {
-                question: "Qual o tempo ideal para realização do ECG na dor torácica?",
-                options: ["30 minutos", "10 minutos", "60 minutos", "Após exames de sangue"],
-                correctAnswer: 1,
-                justification: "O ECG deve ser realizado e interpretado em até 10 minutos da chegada do paciente."
-            },
-            {
-                question: "O que significa o 'O' no mnemônico MONABICH para tratamento de IAM?",
-                options: ["Opióide", "Oxigênio", "Omeprazol", "Ondansetrona"],
-                correctAnswer: 1,
-                justification: "O 'O' refere-se a Oxigênio (indicado se saturação < 90% ou congestão)."
-            },
-            {
-                question: "A dor da Pericardite tem como característica:",
-                options: ["Piora com esforço", "Melhora ao inclinar o tronco para frente", "É tipo rasgando", "Não tem relação com posição"],
-                correctAnswer: 1,
-                justification: "A dor da pericardite tipicamente melhora quando o paciente se senta e inclina o tronco para frente."
-            },
-            {
-                question: "A dor da Dissecção de Aorta é descrita como:",
-                options: ["Opressiva leve", "Súbita, intensa, tipo 'rasgando' ou 'facada', irradiando para o dorso", "Piora com a tosse", "Queimação"],
-                correctAnswer: 1,
-                justification: "A dissecção aórtica causa dor súbita, lancinante ('rasgando'), muitas vezes irradiando para as costas."
-            },
-            {
-                question: "A Síndrome de Boerhaave é:",
-                options: ["Infarto de VD", "Ruptura espontânea do esôfago", "Embolia pulmonar", "Pneumotórax espontâneo"],
-                correctAnswer: 1,
-                justification: "É a ruptura espontânea do esôfago, geralmente após vômitos vigorosos, causando dor torácica grave."
-            },
-            {
-                question: "Na ausculta, o atrito pericárdico é sinal de:",
-                options: ["Pneumonia", "IAM", "Pericardite", "Pneumotórax"],
-                correctAnswer: 2,
-                justification: "O atrito pericárdico é o sinal físico clássico da pericardite aguda."
-            },
-            {
-                question: "O Sinal de Kussmaul (turgência jugular na inspiração) pode indicar:",
-                options: ["Tamponamento cardíaco", "Infarto anterior", "Pneumonia", "AVC"],
+                options: ["Sinal de Battle e olhos de guaxinim", "Midríase fixa", "Hemiplegia", "Rigidez de nuca"],
                 correctAnswer: 0,
-                justification: "O sinal de Kussmaul e o pulso paradoxal são sinais sugestivos de tamponamento cardíaco."
+                justification: "Equimose retroauricular (Battle) e periorbitária (olhos de guaxinim) são sinais de fratura de base de crânio."
             },
             {
-                question: "Qual marcador de necrose miocárdica é o mais específico e sensível?",
-                options: ["CK-MB", "Mioglobina", "Troponina", "LDH"],
-                correctAnswer: 2,
-                justification: "As Troponinas são os marcadores padrão-ouro para diagnóstico de lesão miocárdica."
-            },
-            {
-                question: "Qual a conduta imediata na suspeita de IAM com supra de ST?",
-                options: ["Apenas observação", "Reperfusão (Trombólise ou Angioplastia/ICP)", "Antibióticos", "Alta para casa"],
+                question: "Na Escala de Coma de Glasgow, qual a pontuação para abertura ocular ao estímulo verbal?",
+                options: ["4", "3", "2", "1"],
                 correctAnswer: 1,
-                justification: "O objetivo principal é a reperfusão imediata da artéria ocluída, seja por medicamentos (fibrinolíticos) ou cateterismo (ICP)."
+                justification: "Espontânea=4, À voz=3, À dor=2, Ausente=1."
+            },
+            {
+                question: "O hematoma subdural agudo geralmente decorre de:",
+                options: ["Ruptura de artéria meníngea", "Ruptura de veias ponte", "Fratura com afundamento", "Aneurisma"],
+                correctAnswer: 1,
+                justification: "O hematoma subdural resulta frequentemente da ruptura das veias ponte entre o córtex e a dura-máter."
+            },
+            {
+                question: "A definição de concussão cerebral envolve:",
+                options: ["Lesão estrutural visível na TC", "Perda imediata e transitória da consciência sem lesão estrutural macroscópica", "Coma prolongado", "Hemorragia intraparenquimatosa"],
+                correctAnswer: 1,
+                justification: "Concussão é uma perda transitória da função neurológica/consciência sem danos estruturais visíveis nos exames de imagem."
+            },
+            {
+                question: "Qual é a resposta motora de 'decorticação' na Escala de Glasgow?",
+                options: ["Flexão anormal", "Extensão anormal", "Retirada à dor", "Localiza a dor"],
+                correctAnswer: 0,
+                justification: "A decorticação corresponde à flexão anormal dos membros superiores (pontuação 3 na resposta motora)."
+            },
+            {
+                question: "Em ferimentos penetrantes cranianos (objetos encravados), a conduta é:",
+                options: ["Remover imediatamente", "Não remover e estabilizar o objeto", "Cortar o objeto", "Empurrar o objeto"],
+                correctAnswer: 1,
+                justification: "Objetos encravados devem ser estabilizados e não removidos no ambiente pré-hospitalar para evitar hemorragia e mais lesões."
+            },
+            {
+                question: "Uma lesão medular completa no nível T6 resulta em:",
+                options: ["Tetraplegia", "Paraplegia", "Hemiplegia", "Morte imediata"],
+                correctAnswer: 1,
+                justification: "Lesões na medula torácica (abaixo de T1) preservam os braços, resultando em paraplegia."
+            },
+            {
+                question: "O Sinal de Battle refere-se a:",
+                options: ["Equimose periorbitária", "Equimose na região da mastoide (retroauricular)", "Saída de líquor pelo nariz", "Sangue no tímpano"],
+                correctAnswer: 1,
+                justification: "O Sinal de Battle é a equimose na região da mastoide, indicativo de fratura de base de crânio."
+            },
+
+            // TÓPICO 5: INTOXICAÇÃO
+            {
+                question: "Na abordagem inicial do paciente intoxicado, a prioridade do 'A' (ABCDE) é:",
+                options: ["Antídoto", "Avaliação neurológica", "Vias aéreas e proteção da coluna cervical", "Acesso venoso"],
+                correctAnswer: 2,
+                justification: "O 'A' corresponde à manutenção das Vias Aéreas pérvias e estabilização da coluna cervical, se necessário."
+            },
+            {
+                question: "Qual substância é um asfixiante químico comum em incêndios que inibe a respiração celular?",
+                options: ["Monóxido de Carbono", "Cianeto", "Gás Cloro", "Dióxido de Carbono"],
+                correctAnswer: 1,
+                justification: "O Cianeto é um asfixiante químico (bloqueia a citocromo oxidase), impedindo o uso do oxigênio pelas células."
+            },
+            {
+                question: "O antídoto específico para intoxicação por opioides é:",
+                options: ["Flumazenil", "Atropina", "Naloxona", "Acetilcisteína"],
+                correctAnswer: 2,
+                justification: "A Naloxona é o antagonista específico dos receptores opioides, usado para reverter a depressão respiratória e do SNC."
+            },
+            {
+                question: "Para intoxicação por benzodiazepínicos, o antídoto é:",
+                options: ["Naloxona", "Flumazenil", "Biperideno", "Etanol"],
+                correctAnswer: 1,
+                justification: "O Flumazenil é o antagonista específico dos benzodiazepínicos."
+            },
+            {
+                question: "A Síndrome Colinérgica (ex: organofosforados) apresenta:",
+                options: ["Boca seca, midríase, taquicardia", "Sialorreia, miose, lacrimejamento, diarreia, fasciculações", "Depressão respiratória, coma, miose", "Agitação, hipertensão, midríase"],
+                correctAnswer: 1,
+                justification: "A síndrome colinérgica causa 'molheira': sialorreia, lacrimejamento, miose, diarreia, além de bradicardia e fasciculações."
+            },
+            {
+                question: "Qual a conduta para descontaminação ocular em caso de exposição química?",
+                options: ["Usar colírio anestésico", "Lavar com água ou soro fisiológico em abundância por 15-20 minutos", "Cobrir com gaze estéril", "Não fazer nada"],
+                correctAnswer: 1,
+                justification: "A irrigação imediata e abundante com água ou soro é a medida crucial para descontaminação ocular."
+            },
+            {
+                question: "A intoxicação por Monóxido de Carbono (CO) causa hipóxia porque:",
+                options: ["Destrói os alvéolos", "Tem afinidade pela hemoglobina muito maior que o O2, deslocando-o", "Causa broncoespasmo severo", "Paralisa o diafragma"],
+                correctAnswer: 1,
+                justification: "O CO se liga à hemoglobina com afinidade 200-250x maior que o O2, formando carboxihemoglobina e impedindo o transporte de oxigênio."
+            },
+            {
+                question: "Qual antídoto é usado para intoxicação por Paracetamol?",
+                options: ["N-acetilcisteína", "Atropina", "Azul de metileno", "Vitamina K"],
+                correctAnswer: 0,
+                justification: "A N-acetilcisteína é o antídoto que repõe a glutationa hepática, prevenindo a lesão pelo metabólito tóxico do paracetamol."
+            },
+            {
+                question: "Em intoxicações, a lavagem gástrica é considerada:",
+                options: ["Rotina para todos os pacientes", "Indicada apenas se ingestão recente (< 1-2h) e risco de vida, com via aérea protegida", "Sempre indicada para corrosivos", "Indicada para hidrocarbonetos"],
+                correctAnswer: 1,
+                justification: "A lavagem gástrica não é rotina; é considerada apenas em ingestões recentes potencialmente letais, com proteção de via aérea."
+            },
+            {
+                question: "A 'Síndrome Simpatomimética' (ex: cocaína) cursa com:",
+                options: ["Bradicardia, miose, hipotensão", "Taquicardia, hipertensão, midríase, agitação", "Coma, depressão respiratória", "Salivação excessiva"],
+                correctAnswer: 1,
+                justification: "Estimulantes como cocaína causam excesso de atividade simpática: taquicardia, hipertensão, midríase e agitação."
+            },
+
+            // TÓPICO 6: EDEMA AGUDO DE PULMÃO (EAP)
+            {
+                question: "O Edema Agudo de Pulmão Cardiogênico é causado principalmente por:",
+                options: ["Aumento da permeabilidade capilar", "Aumento da pressão hidrostática capilar pulmonar (falência de VE)", "Obstrução linfática", "Diminuição da pressão oncótica"],
+                correctAnswer: 1,
+                justification: "O EAP cardiogênico resulta do aumento da pressão hidrostática nos capilares pulmonares devido à falência do ventrículo esquerdo."
+            },
+            {
+                question: "Qual sinal clínico indica gravidade extrema no EAP?",
+                options: ["Dispneia aos esforços", "Tosse seca noturna", "Secreção rósea e espumosa pela boca/nariz", "Edema de membros inferiores"],
+                correctAnswer: 2,
+                justification: "A presença de secreção rósea e espumosa indica inundação alveolar maciça, sendo um sinal de risco iminente de morte."
+            },
+            {
+                question: "Qual a posição ideal para o paciente com EAP?",
+                options: ["Decúbito dorsal", "Sentado com as pernas pendentes", "Trendelenburg", "Decúbito lateral"],
+                correctAnswer: 1,
+                justification: "Sentado com pernas pendentes reduz o retorno venoso (pré-carga) e melhora a mecânica ventilatória."
+            },
+            {
+                question: "A Furosemida no EAP atua:",
+                options: ["Apenas como diurético tardio", "Como venodilatador imediato e diurético posterior", "Como inotrópico positivo", "Como broncodilatador"],
+                correctAnswer: 1,
+                justification: "A furosemida EV causa venodilatação imediata (reduzindo pré-carga) antes mesmo do efeito diurético."
+            },
+            {
+                question: "O uso de Nitroglicerina no EAP visa:",
+                options: ["Aumentar a pós-carga", "Vasodilatação venosa (reduz pré-carga) e coronariana", "Aumentar a frequência cardíaca", "Sedação"],
+                correctAnswer: 1,
+                justification: "A nitroglicerina é um venodilatador que reduz o retorno venoso e melhora a perfusão coronariana."
+            },
+            {
+                question: "A Morfina pode ser usada no EAP (com cautela) para:",
+                options: ["Aumentar a pressão arterial", "Reduzir a ansiedade e promover venodilatação", "Reverter broncoespasmo", "Aumentar a diurese"],
+                correctAnswer: 1,
+                justification: "A morfina diminui a ansiedade e causa venodilatação, ajudando a reduzir a pré-carga."
+            },
+            {
+                question: "O EAP não-cardiogênico (ex: SDRA) é caracterizado por:",
+                options: ["Aumento da pressão hidrostática", "Aumento da permeabilidade da membrana alvéolo-capilar", "Falência cardíaca", "Sobrecarga de volume"],
+                correctAnswer: 1,
+                justification: "O EAP não-cardiogênico ocorre por lesão direta ou indireta da membrana, aumentando sua permeabilidade (ex: infecção, gases tóxicos)."
+            },
+            {
+                question: "A Ventilação Não Invasiva (VNI) no EAP:",
+                options: ["É contraindicada", "Reduz o trabalho respiratório e melhora a oxigenação (CPAP/BiPAP)", "Aumenta o retorno venoso", "Só deve ser usada se o paciente estiver inconsciente"],
+                correctAnswer: 1,
+                justification: "A VNI (CPAP ou BiPAP) é altamente benéfica no EAP, melhorando a troca gasosa e reduzindo a necessidade de intubação."
+            },
+            {
+                question: "Sinais de EAP incluem:",
+                options: ["Bradipneia e pele quente", "Taquidispneia, estertores crepitantes, cianose, agitação", "Murmúrio vesicular abolido", "Tórax silencioso"],
+                correctAnswer: 1,
+                justification: "O quadro clínico inclui dispneia intensa, taquipneia, estertores úmidos (crepitantes) difusos, cianose e agitação/ansiedade."
+            },
+            {
+                question: "Qual a principal causa de EAP cardiogênico?",
+                options: ["Pneumonia", "Insuficiência Cardíaca Esquerda", "Embolia Pulmonar", "Sepse"],
+                correctAnswer: 1,
+                justification: "A insuficiência do ventrículo esquerdo é a causa mais comum, levando ao acúmulo retrógrado de sangue nos pulmões."
             }
         ];
-
 
         const quizContainer = document.getElementById('quiz-container');
         const resultContainer = document.getElementById('result-container');
@@ -481,7 +524,7 @@
                 }
             });
 
-            justificationText.textContent = question.justification;
+            justificationText.innerHTML = question.justification;
             feedbackArea.classList.remove('hidden');
             nextBtn.disabled = false;
         }
@@ -502,7 +545,7 @@
                 }
             });
 
-            justificationText.textContent = question.justification;
+            justificationText.innerHTML = question.justification;
             feedbackArea.classList.remove('hidden');
             nextBtn.disabled = false;
         }
